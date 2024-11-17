@@ -1,0 +1,38 @@
+.container {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    margin-top: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 70px);
+    grid-gap: 5px;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+.cell {
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    background-color: #ccc;
+    border: 1px solid #333;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.cell.highlighted {
+    background-color: #4caf50;
+}
+
+.cell.clicked {
+    background-color: #2196f3;
+}
+
+.button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
