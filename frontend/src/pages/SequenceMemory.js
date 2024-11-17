@@ -108,7 +108,7 @@ const SequenceMemory = () => {
             ) : (
                 <div>
                     <h2>Level: {level}</h2>
-                    <div className="grid">
+                    <div className="gridSM">
                         {Array.from({ length: 9 }).map((_, index) => renderCell(index))}
                     </div>
                     {showResult && (
