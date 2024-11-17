@@ -61,6 +61,11 @@ header nav ul li a {
     margin: auto;
     width: 100%;
     padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 90px);
+    grid-gap: 100px;
+    justify-content: center;
+    margin: 20px auto;
 }
 
 .draw-border {
@@ -121,6 +126,7 @@ header nav ul li a {
     font: 15px "Roboto Slab", sans-serif;
     padding: 1em 2em;
     letter-spacing: 0.05rem;
+    width: 180px;
 }
 
 .btn:focus {
