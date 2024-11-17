@@ -4,7 +4,7 @@
     margin-top: 20px;
 }
 
-.grid {
+.gridSM {
     display: grid;
     grid-template-columns: repeat(3, 70px);
     grid-gap: 5px;
