@@ -1,32 +1,17 @@
 import React from 'react';
 import './Home.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Header from './Header';
 
 function Home() {
     return (
-        <div className="main">
+        <div className='main'>
             <Header />
             <div className="heading">
                 <h1>Test Your Abilities</h1>
             </div>
             <Grid />
         </div>
-    );
-};
-
-const Header = () => {
-    return (
-        <header>
-            <div className="logo">Benchmark</div>
-            <nav>
-                <ul>
-                    <li><Link to="/home">Home</Link></li>
-                    <li><Link to="/about">About</Link></li>
-                    <li><Link to="/leaderboard">Leaderboard</Link></li>
-                    <li><Link to="/login">Login/Sign Up</Link></li>
-                </ul>
-            </nav>
-        </header>
     );
 };
 

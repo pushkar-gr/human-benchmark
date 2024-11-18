@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap');
+
+/* General Styles */
+html,
+body {
+    font-family: "Roboto Slab", sans-serif;
+}
+
+/* Header Styles */
+header {
+    color: #934AB3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+header .logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+header nav ul li a {
+    color: #934AB3;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* Test Grid Section */
+.mainHeader {
+    background-image: url(./../1.webp);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+}

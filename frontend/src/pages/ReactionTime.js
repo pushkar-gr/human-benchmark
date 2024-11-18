@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import './ReactionTime.css';
+import Header from "./Header";
 
 const ReactionTimeTest = () => {
     const [color, setColor] = useState("red");
@@ -44,19 +45,22 @@ const ReactionTimeTest = () => {
     };
 
     return (
-        <div className="container">
-            <h1>Reaction Time Test</h1>
-            <div
-                className="box"
-                style={{
-                    backgroundColor: color,
-                }}
-                onClick={handleClick}
-            ></div>
-            <p>{message}</p>
-            <button onClick={startTest} className="button">
-                Start Test
-            </button>
+        <div className="main">
+            <Header />
+            <div className="container">
+                <h1>Reaction Time Test</h1>
+                <div
+                    className="box"
+                    style={{
+                        backgroundColor: color,
+                    }}
+                    onClick={handleClick}
+                ></div>
+                <p>{message}</p>
+                <button onClick={startTest} className="button">
+                    Start Test
+                </button>
+            </div>
         </div>
     );
 };

@@ -8,16 +8,18 @@ import SequenceMemory from './pages/SequenceMemory.js';
 
 function App() {
     return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<Navigate to="/home" />} />
-                <Route path="/home" element={<Home />} />
-                <Route path="/test/aimtrainer" element={<AimTrainer />} />
-                <Route path="/test/reactiontime" element={<ReactionTime />} />
-                <Route path="/test/numbermemory" element={<NumberMeomory />} />
-                <Route path="/test/sequencememory" element={<SequenceMemory />} />
-            </Routes>
-        </Router>
+        <div>
+            <Router>
+                <Routes>
+                    <Route path="/" element={<Navigate to="/home" />} />
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/test/aimtrainer" element={<AimTrainer />} />
+                    <Route path="/test/reactiontime" element={<ReactionTime />} />
+                    <Route path="/test/numbermemory" element={<NumberMeomory />} />
+                    <Route path="/test/sequencememory" element={<SequenceMemory />} />
+                </Routes>
+            </Router>
+        </div>
     );
 }
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import './SequenceMemory.css';
+import Header from "./Header";
 
 const SequenceMemory = () => {
     const [level, setLevel] = useState(1);
@@ -96,40 +97,43 @@ const SequenceMemory = () => {
     };
 
     return (
-        <div className="container">
-            <h1>Sequence Memory</h1>
-            {gameOver ? (
-                <div>
-                    <h2>You Win!</h2>
-                    <button onClick={restartGame} className="button">
-                        Play Again
-                    </button>
-                </div>
-            ) : (
-                <div>
-                    <h2>Level: {level}</h2>
-                    <div className="gridSM">
-                        {Array.from({ length: 9 }).map((_, index) => renderCell(index))}
+        <div className="main">
+            <Header />
+            <div className="container">
+                <h1>Sequence Memory</h1>
+                {gameOver ? (
+                    <div>
+                        <h2>You Win!</h2>
+                        <button onClick={restartGame} className="button">
+                            Play Again
+                        </button>
                     </div>
-                    {showResult && (
-                        <div>
-                            <p>
-                                Your Input: {userInput.join(",")} <br />
-                                Correct Sequence: {sequence.join(",")}
-                            </p>
-                            {JSON.stringify(userInput) === JSON.stringify(sequence) ? (
-                                <button onClick={nextLevel} className="button">
-                                    Next Level
-                                </button>
-                            ) : (
-                                <button onClick={restartGame} className="button">
-                                    Restart
-                                </button>
-                            )}
+                ) : (
+                    <div>
+                        <h2>Level: {level}</h2>
+                        <div className="gridSM">
+                            {Array.from({ length: 9 }).map((_, index) => renderCell(index))}
                         </div>
-                    )}
-                </div>
-            )}
+                        {showResult && (
+                            <div>
+                                <p>
+                                    Your Input: {userInput.join(",")} <br />
+                                    Correct Sequence: {sequence.join(",")}
+                                </p>
+                                {JSON.stringify(userInput) === JSON.stringify(sequence) ? (
+                                    <button onClick={nextLevel} className="button">
+                                        Next Level
+                                    </button>
+                                ) : (
+                                    <button onClick={restartGame} className="button">
+                                        Restart
+                                    </button>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                )}
+            </div>
         </div>
     );
 };
