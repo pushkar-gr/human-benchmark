@@ -1,10 +1,7 @@
 .main {
-    background-image: url(./../1.webp);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     height: 100%;
     margin: 0;
+    background: #000000;
 }
 
 .heading {
@@ -22,7 +19,6 @@
     justify-content: space-evenly;
     flex-wrap: wrap;
     width: auto;
-    /*padding: 0px 500px 0px 500px;*/
     display: grid;
     grid-template-columns: repeat(3, auto);
     column-gap: 100px;

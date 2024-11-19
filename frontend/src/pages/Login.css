@@ -1,0 +1,38 @@
+.form-contain {
+    display: block;
+    text-align: center;
+    padding-bottom: 650px;
+    background: #000000;
+}
+.login {
+    color: #934AB3;
+    
+}
+
+.login h1 {
+    margin-bottom: 50px;
+    font-size: 300%;
+}
+
+.login input {
+    margin: 15px;
+    width:250px;
+    height: 30px;
+    background: #1a1a1a;
+    border: 2px solid #F76301;
+    color: white;
+    font-size: 120%;
+}
+
+.submit-btn {
+    width: 260px;
+    margin-top: 20px;
+    font-size: 110%;
+}
+.submit-btn:focus{
+    outline: none;
+}
+
+.login input:focus {
+    outline: none;
+}
