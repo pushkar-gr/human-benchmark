@@ -48,8 +48,8 @@ const AimTrainer = () => {
     return (
         <div className="main">
             <Header />
-            <div className="container">
-                <h1>Aim Trainer</h1>
+            <div className="container-aim">
+                <h1 className="head">Aim Trainer</h1>
                 <p>{totalCircles - currentCircle} circles left</p>
                 {totalTime && <h2>Time taken: {totalTime}</h2>}
                 <div className="gameArea">
@@ -64,7 +64,7 @@ const AimTrainer = () => {
                         ></div>
                     )}
                 </div>
-                <button onClick={resetTrainer} className="button">
+                <button onClick={resetTrainer} className="button-aim btn draw-border">
                     Restart
                 </button>
             </div>

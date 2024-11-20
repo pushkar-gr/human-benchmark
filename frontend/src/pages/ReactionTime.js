@@ -56,8 +56,8 @@ const ReactionTimeTest = () => {
                     }}
                     onClick={handleClick}
                 ></div>
-                <p>{message}</p>
-                <button onClick={startTest} className="button">
+                <p className="start">{message}</p>
+                <button onClick={startTest} className="btn draw-border start-btn">
                     Start Test
                 </button>
             </div>

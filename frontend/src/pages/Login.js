@@ -29,6 +29,7 @@ function Login() {
             })
             .then((data) => {
                 console.log(data);
+                localStorage.setItem("user",JSON.stringify(data.user.username));
                 navigate("/home");
             })
             .catch((error) => {
