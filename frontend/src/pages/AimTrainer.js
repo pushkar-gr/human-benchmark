@@ -43,7 +43,7 @@ const AimTrainer = () => {
         spawnCircle();
     };
 
-    const totalTime = endTime && startTime ? `${(endTime - startTime)/totalCircles} ms` : null;
+    const totalTime = endTime && startTime ? `${(endTime - startTime) / totalCircles} ms` : null;
 
     return (
         <div className="main">

@@ -25,11 +25,7 @@ function Header() {
                     <li><Link to="/about">About</Link></li>
                     <li><Link to="/leaderboard">Leaderboard</Link></li>
                     {username ? (<>
-                        <select defaultValue={username}>
-                            <option>Profile</option>
-                            <option>Logout</option>
-                        </select>
-                        <li><span>{username}</span></li>
+                        <li><Link to="/profile">Profile</Link></li>
                         <li><button onClick={logout}>Logout</button></li>
                     </>
                     ) : (

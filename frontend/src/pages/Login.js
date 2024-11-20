@@ -29,7 +29,7 @@ function Login() {
             })
             .then((data) => {
                 console.log(data);
-                localStorage.setItem("user",JSON.stringify(data.user.username));
+                localStorage.setItem("user", JSON.stringify(data.user.username));
                 navigate("/home");
             })
             .catch((error) => {
@@ -41,31 +41,27 @@ function Login() {
     return (
         <div className="main">
             <Header />
-            <div className="form-contain">
-                <form className="login" onSubmit={handleSubmit}>
+            <div className="loginContain">
+                <form className="loginForm" onSubmit={handleSubmit}>
                     <h1>Login</h1>
-                    {error && <p className="error-message">{error}</p>}
-                    <div className="form-group">
-                        <input
-                            type="text"
-                            id="username"
-                            value={username}
-                            onChange={(e) => { setUsername(e.target.value); setError("") }}
-                            placeholder="Enter your username"
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <input
-                            type="password"
-                            id="password"
-                            value={password}
-                            onChange={(e) => { setPassword(e.target.value); setError("") }}
-                            placeholder="Enter your password"
-                            required
-                        />
-                    </div>
-                    <button type="submit" className="btn draw-border submit-btn">Login</button>
+                    {error && <p>{error}</p>}
+                    <input
+                        type="text"
+                        id="username"
+                        value={username}
+                        onChange={(e) => { setUsername(e.target.value); setError("") }}
+                        placeholder="Enter your username"
+                        required
+                    />
+                    <input
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => { setPassword(e.target.value); setError("") }}
+                        placeholder="Enter your password"
+                        required
+                    />
+                    <button type="submit" className="btn draw-border loginButton">Login</button>
                     <p>
                         Don't have an account? <a href="/register">Sign up</a>
                     </p>
