@@ -47,17 +47,17 @@ const ReactionTimeTest = () => {
     return (
         <div className="main">
             <Header />
-            <div className="container">
+            <div className="reacContainor">
                 <h1>Reaction Time Test</h1>
                 <div
-                    className="box"
+                    className="reacBox"
                     style={{
                         backgroundColor: color,
                     }}
                     onClick={handleClick}
                 ></div>
-                <p className="start">{message}</p>
-                <button onClick={startTest} className="btn draw-border start-btn">
+                <p className="reacStart">{message}</p>
+                <button onClick={startTest} className="btn draw-border reacButton">
                     Start Test
                 </button>
             </div>

@@ -29,11 +29,11 @@ const NumberMeomory = () => {
         let progressInterval;
         let currentProgress = 0;
         progressInterval = setInterval(() => {
-            currentProgress += 2.5; // Increment progress every 100ms
+            currentProgress += 2.5;
             setProgress(currentProgress);
             if (currentProgress >= 100) {
                 clearInterval(progressInterval);
-                setShowInput(true); // Show input field after progress completes
+                setShowInput(true);
             }
         }, 100);
     };
@@ -64,12 +64,12 @@ const NumberMeomory = () => {
     return (
         <div className="main">
             <Header />
-            <div className="container">
+            <div className="numContainer">
                 <h1>Number Trainer</h1>
                 {gameOver ? (
                     <div>
                         <h2>You Win!</h2>
-                        <button onClick={restartGame} className="button">
+                        <button onClick={restartGame} className="numButton">
                             Play Again
                         </button>
                     </div>
@@ -79,9 +79,9 @@ const NumberMeomory = () => {
                         {!showInput && !showResult && (
                             <div>
                                 <h3>{number}</h3>
-                                <div className="progress-bar-container">
+                                <div className="numProgressContainer">
                                     <div
-                                        className="progress-bar"
+                                        className="numProgressBar"
                                         style={{ width: `${progress}%` }}
                                     ></div>
                                 </div>
@@ -94,9 +94,9 @@ const NumberMeomory = () => {
                                     type="text"
                                     value={userInput}
                                     onChange={handleInputChange}
-                                    className="input"
+                                    className="numInput"
                                 />
-                                <button onClick={handleSubmit} className="button">
+                                <button onClick={handleSubmit} className="numButton btn draw-border">
                                     Submit
                                 </button>
                             </div>
@@ -106,11 +106,11 @@ const NumberMeomory = () => {
                                 <p>Original Number: {number}</p>
                                 <p>Your Input: {userInput}</p>
                                 {userInput === number ? (
-                                    <button onClick={nextLevel} className="button">
+                                    <button onClick={nextLevel} className="numButton btn draw-border">
                                         Next Level
                                     </button>
                                 ) : (
-                                    <button onClick={restartGame} className="button">
+                                    <button onClick={restartGame} className="numButton btn draw-border">
                                         Restart
                                     </button>
                                 )}

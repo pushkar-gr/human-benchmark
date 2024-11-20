@@ -48,14 +48,14 @@ const AimTrainer = () => {
     return (
         <div className="main">
             <Header />
-            <div className="container-aim">
-                <h1 className="head">Aim Trainer</h1>
+            <div className="aimContainer">
+                <h1 className="aimHead1">Aim Trainer</h1>
                 <p>{totalCircles - currentCircle} circles left</p>
                 {totalTime && <h2>Time taken: {totalTime}</h2>}
-                <div className="gameArea">
+                <div className="aimGameArea">
                     {circle && (
                         <div
-                            className="circle"
+                            className="aimCircle"
                             style={{
                                 left: `${circle.x}%`,
                                 top: `${circle.y}%`,
@@ -64,7 +64,7 @@ const AimTrainer = () => {
                         ></div>
                     )}
                 </div>
-                <button onClick={resetTrainer} className="button-aim btn draw-border">
+                <button onClick={resetTrainer} className="aimButton btn draw-border">
                     Restart
                 </button>
             </div>

@@ -6,6 +6,7 @@ import ReactionTime from './pages/ReactionTime.js';
 import NumberMeomory from './pages/NumberMeomory.js';
 import SequenceMemory from './pages/SequenceMemory.js';
 import Login from './pages/Login.js';
+import './App.css'
 
 function App() {
     return (
@@ -18,7 +19,7 @@ function App() {
                     <Route path="/test/reactiontime" element={<ReactionTime />} />
                     <Route path="/test/numbermemory" element={<NumberMeomory />} />
                     <Route path="/test/sequencememory" element={<SequenceMemory />} />
-                    <Route path="/login" element={<Login />}/>
+                    <Route path="/login" element={<Login />} />
                 </Routes>
             </Router>
         </div>

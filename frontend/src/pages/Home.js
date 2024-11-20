@@ -7,9 +7,7 @@ function Home() {
     return (
         <div className='main'>
             <Header />
-            <div className="heading">
-                <h1>Test Your Abilities</h1>
-            </div>
+            <h1 className="homeHeading">Test Your Abilities</h1>
             <Grid />
         </div>
     );
@@ -17,7 +15,7 @@ function Home() {
 
 const Grid = () => {
     return (
-        <div className="grid">
+        <div className="homeGrid">
             <Button
                 title="Reaction Time"
                 description="Test your reaction time."

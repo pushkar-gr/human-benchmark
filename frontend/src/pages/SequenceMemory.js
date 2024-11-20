@@ -86,7 +86,7 @@ const SequenceMemory = () => {
     const renderCell = (index) => {
         const isHighlighted = index === currentHighlight;
         const isUserClicked = index === userHighlight;
-        const cellClass = `cell ${isHighlighted ? 'highlighted' : ''} ${isUserClicked ? 'clicked' : ''}`;
+        const cellClass = `seqCell ${isHighlighted ? 'highlighted' : ''} ${isUserClicked ? 'clicked' : ''}`;
         return (
             <div
                 key={index}
@@ -99,19 +99,19 @@ const SequenceMemory = () => {
     return (
         <div className="main">
             <Header />
-            <div className="container">
+            <div className="seqContainer">
                 <h1>Sequence Memory</h1>
                 {gameOver ? (
                     <div>
                         <h2>You Win!</h2>
-                        <button onClick={restartGame} className="button">
+                        <button onClick={restartGame} className="seqButton">
                             Play Again
                         </button>
                     </div>
                 ) : (
                     <div>
                         <h2>Level: {level}</h2>
-                        <div className="gridSM">
+                        <div className="seqGrid">
                             {Array.from({ length: 9 }).map((_, index) => renderCell(index))}
                         </div>
                         {showResult && (
@@ -121,11 +121,11 @@ const SequenceMemory = () => {
                                     Correct Sequence: {sequence.join(",")}
                                 </p>
                                 {JSON.stringify(userInput) === JSON.stringify(sequence) ? (
-                                    <button onClick={nextLevel} className="button">
+                                    <button onClick={nextLevel} className="seqButton">
                                         Next Level
                                     </button>
                                 ) : (
-                                    <button onClick={restartGame} className="button">
+                                    <button onClick={restartGame} className="seqButton">
                                         Restart
                                     </button>
                                 )}

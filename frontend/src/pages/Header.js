@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './Header.css';
 import { Link } from 'react-router-dom';
 
 function Header() {
@@ -18,27 +17,25 @@ function Header() {
         setUsername(null);
     }
     return (
-        <div className="mainHeader">
-            <header>
-                <div className="logo">Benchmark</div>
-                <nav>
-                    <ul>
-                        <li><Link to="/home">Home</Link></li>
-                        <li><Link to="/about">About</Link></li>
-                        <li><Link to="/leaderboard">Leaderboard</Link></li>
-                        {username ? (<>
-                            <select defaultValue={username}>
-                                <option>Profile</option>
-                                <option>Logout</option>
-                            </select>
-                            <li><span>{username}</span></li>
-                            <li><button onClick={logout}>Logout</button></li>
-                        </>
-                        ) : (
-                            <li><Link to="/login">Login/Sign Up</Link></li>
-                        )}</ul>
-                </nav>
-            </header>
+        <div className="globalHeader">
+            <p className="logo">Benchmark</p>
+            <nav>
+                <ul>
+                    <li><Link to="/home">Home</Link></li>
+                    <li><Link to="/about">About</Link></li>
+                    <li><Link to="/leaderboard">Leaderboard</Link></li>
+                    {username ? (<>
+                        <select defaultValue={username}>
+                            <option>Profile</option>
+                            <option>Logout</option>
+                        </select>
+                        <li><span>{username}</span></li>
+                        <li><button onClick={logout}>Logout</button></li>
+                    </>
+                    ) : (
+                        <li><Link to="/login">Login/Sign Up</Link></li>
+                    )}</ul>
+            </nav>
         </div>
     );
 };
