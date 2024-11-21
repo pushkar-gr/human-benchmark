@@ -26,7 +26,7 @@ function Header() {
                     <li><Link to="/leaderboard">Leaderboard</Link></li>
                     {username ? (<>
                         <li><Link to="/profile">Profile</Link></li>
-                        <li><button onClick={logout}>Logout</button></li>
+                        <li onClick={logout}>Logout</li>
                     </>
                     ) : (
                         <li><Link to="/login">Login/Sign Up</Link></li>
