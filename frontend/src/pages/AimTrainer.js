@@ -50,7 +50,7 @@ const AimTrainer = () => {
             <Header />
             <div className="aimContainer">
                 <h1 className="aimHead1">Aim Trainer</h1>
-                <p>{totalCircles - currentCircle} circles left</p>
+                {totalTime == null && <p>{totalCircles - currentCircle} circles left</p>}
                 {totalTime && <h2>Time taken: {totalTime}</h2>}
                 <div className="aimGameArea">
                     {circle && (
