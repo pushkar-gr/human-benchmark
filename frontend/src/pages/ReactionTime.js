@@ -28,7 +28,8 @@ const ReactionTimeTest = () => {
 
     const handleClick = () => {
         if (!timeoutRef.current) {
-            return
+            startTest();
+            return;
         }
         if (color === "green") {
             const timeTaken = Date.now() - startTime;
