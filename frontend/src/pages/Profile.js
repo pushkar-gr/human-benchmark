@@ -34,19 +34,44 @@ function Profile() {
         return <div className="profile-page">Loading...</div>;
     }
 
+    const handleDeleteAccount = () => {
+        const username = JSON.parse(localStorage.getItem('user'));
+        if (window.confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+            fetch(`http://localhost:5000/api/user/delete`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        alert(data.message);
+                        localStorage.removeItem('user');
+                        localStorage.removeItem('highScores');
+                        navigate('/login');
+                    } else {
+                        alert('Error deleting account');
+                    }
+                })
+                .catch(error => console.error('Error deleting account:', error));
+        }
+    };
+
     const { username, highScores } = userData;
     const highScoreName = {
-        "reactionTime":"Reaction Time",
-        "aimTrainer":"Aim Trainer",
-        "numberMemory":"Number Memory"
+        "reactionTime": "Reaction Time",
+        "aimTrainer": "Aim Trainer",
+        "numberMemory": "Number Memory"
     }
 
     return (
         <div className='main'>
             <Header />
-            <div className="profile-page">
+            <div className="profilePage">
                 <h1>Profile</h1>
-                <div className="profile-card">
+                <div className="profileCard">
                     <h2>Username: <p className='profileValue'>{username}</p></h2>
                     <h3>High Scores:</h3>
                     <ul>
@@ -57,6 +82,9 @@ function Profile() {
                         ))}
                     </ul>
                 </div>
+                <button onClick={handleDeleteAccount} className="profileDelete btn draw-border">
+                    Delete Account
+                </button>
             </div>
         </div>
     );
