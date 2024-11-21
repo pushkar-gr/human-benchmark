@@ -18,23 +18,33 @@ const Grid = () => {
         <div className="homeGrid">
             <Button
                 title="Reaction Time"
-                description="Test your reaction time."
+                description="Test your reaction time"
                 route="/test/reactiontime"
             />
             <Button
                 title="Aim Trainer"
-                description="Improve your aim."
+                description="Improve your aim"
                 route="/test/aimtrainer"
             />
             <Button
                 title="Number Meomory"
-                description="Test your number memory skills."
+                description="Remember the longest number you can"
                 route="/test/numbermemory"
             />
             <Button
                 title="Sequence Meomory"
-                description="Test your sequence memory skills."
+                description="Remember an increasingly long pattern of button presses"
                 route="/test/sequencememory"
+            />
+            <Button
+                title="Visual Meomory"
+                description="Remember an increasingly large board of sqaures"
+                route="/test/visualmemory"
+            />
+            <Button
+                title="Verbal Memory"
+                description="Test your verbal memory"
+                route="/test/verbalmemory"
             />
         </div>
     );

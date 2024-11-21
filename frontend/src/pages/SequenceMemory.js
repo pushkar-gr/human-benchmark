@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import './SequenceMemory.css';
+import "./SequenceMemory.css";
 import Header from "./Header";
 
 const SequenceMemory = () => {
@@ -9,28 +9,44 @@ const SequenceMemory = () => {
     const [isDisplayingSequence, setIsDisplayingSequence] = useState(false);
     const [currentHighlight, setCurrentHighlight] = useState(null);
     const [userHighlight, setUserHighlight] = useState(null);
-    const [showResult, setShowResult] = useState(false);
     const [gameOver, setGameOver] = useState(false);
+    const [gameStarted, setGameStarted] = useState(false);
+    const username = JSON.parse(localStorage.getItem("user"));
 
     useEffect(() => {
-        if (level === 1) {
-            generateInitialSequence();
-        } else {
-            extendSequence();
+        if (gameStarted && sequence.length > 0) {
+            displaySequence(sequence);
         }
-    }, [level]);
+    }, [sequence, gameStarted]);
 
-    const generateInitialSequence = () => {
-        const newSequence = [Math.floor(Math.random() * 9)];
-        setSequence(newSequence);
-        displaySequence(newSequence);
+    const updateHighScore = (newScore) => {
+        fetch("http://localhost:5000/api/user/highscore", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                username: username,
+                game: "sequenceMemory",
+                score: newScore,
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.message === "High score updated successfully") {
+                    console.log("High score updated!");
+                } else {
+                    console.error(data.message);
+                }
+            })
+            .catch((error) => {
+                console.error("Error updating high score:", error);
+            });
     };
 
-    const extendSequence = () => {
+    const generateNextSequence = () => {
         const nextNumber = Math.floor(Math.random() * 9);
-        const newSequence = [...sequence, nextNumber];
-        setSequence(newSequence);
-        displaySequence(newSequence);
+        setSequence((prevSequence) => [...prevSequence, nextNumber]);
     };
 
     const displaySequence = async (sequence) => {
@@ -47,7 +63,7 @@ const SequenceMemory = () => {
     const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     const handleCellClick = (index) => {
-        if (isDisplayingSequence || showResult || gameOver) return;
+        if (isDisplayingSequence || gameOver || !gameStarted) return;
 
         setUserHighlight(index);
         setTimeout(() => setUserHighlight(null), 200);
@@ -55,38 +71,42 @@ const SequenceMemory = () => {
         const updatedUserInput = [...userInput, index];
         setUserInput(updatedUserInput);
 
-        if (updatedUserInput.length === sequence.length) {
-            if (JSON.stringify(updatedUserInput) === JSON.stringify(sequence)) {
-                setShowResult(true);
-            } else {
-                setShowResult(true);
-            }
-        }
-    };
-
-    const nextLevel = () => {
-        setShowResult(false);
-        setUserInput([]);
-        if (level < 20) {
-            setLevel(level + 1);
-        } else {
+        if (sequence[updatedUserInput.length - 1] !== index) {
             setGameOver(true);
+            updateHighScore(level - 1);
+        } else if (updatedUserInput.length === sequence.length) {
+            handleNextLevel();
         }
     };
 
-    const restartGame = () => {
+    const handleNextLevel = async () => {
+        setUserInput([]);
+        setLevel((prev) => prev + 1);
+        await wait(500);
+        generateNextSequence();
+    };
+
+    const startGame = () => {
+        setGameStarted(true);
         setLevel(1);
         setSequence([]);
         setUserInput([]);
         setGameOver(false);
-        setShowResult(false);
-        generateInitialSequence();
+        generateNextSequence();
+    };
+
+    const restartGame = () => {
+        setGameStarted(false);
+        setLevel(1);
+        setSequence([]);
+        setUserInput([]);
+        setGameOver(false);
     };
 
     const renderCell = (index) => {
         const isHighlighted = index === currentHighlight;
         const isUserClicked = index === userHighlight;
-        const cellClass = `seqCell ${isHighlighted ? 'highlighted' : ''} ${isUserClicked ? 'clicked' : ''}`;
+        const cellClass = `seqCell ${isHighlighted ? "highlighted" : ""} ${isUserClicked ? "clicked" : ""}`;
         return (
             <div
                 key={index}
@@ -101,10 +121,17 @@ const SequenceMemory = () => {
             <Header />
             <div className="seqContainer">
                 <h1>Sequence Memory</h1>
-                {gameOver ? (
+                {!gameStarted ? (
                     <div>
-                        <h2>You Win!</h2>
-                        <button onClick={restartGame} className="seqButton">
+                        <button onClick={startGame} className="btn draw-border seqButton">
+                            Start Game
+                        </button>
+                    </div>
+                ) : gameOver ? (
+                    <div>
+                        <h2>Game Over!</h2>
+                        <p>You reached Level: {level - 1}</p>
+                        <button onClick={restartGame} className="btn draw-border seqButton">
                             Play Again
                         </button>
                     </div>
@@ -114,23 +141,7 @@ const SequenceMemory = () => {
                         <div className="seqGrid">
                             {Array.from({ length: 9 }).map((_, index) => renderCell(index))}
                         </div>
-                        {showResult && (
-                            <div>
-                                <p>
-                                    Your Input: {userInput.join(",")} <br />
-                                    Correct Sequence: {sequence.join(",")}
-                                </p>
-                                {JSON.stringify(userInput) === JSON.stringify(sequence) ? (
-                                    <button onClick={nextLevel} className="seqButton">
-                                        Next Level
-                                    </button>
-                                ) : (
-                                    <button onClick={restartGame} className="seqButton">
-                                        Restart
-                                    </button>
-                                )}
-                            </div>
-                        )}
+                        <p>Repeat the sequence shown!</p>
                     </div>
                 )}
             </div>

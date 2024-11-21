@@ -2,80 +2,95 @@ const express = require('express');
 const router = express.Router();
 const connectDB = require('./db.js');
 
-router.post('/user/register', (req, res) => {
+const validateInput = (fields, body) => {
+    return fields.every(field => body[field]);
+};
+
+router.post('/user/register', async (req, res) => {
     const { username, password } = req.body;
-    connectDB().then((db) => {
+
+    if (!validateInput(['username', 'password'], req.body)) {
+        return res.status(400).json({ message: 'Username and password are required.' });
+    }
+
+    try {
+        const db = await connectDB();
         const users = db.collection('users');
 
-        return users.findOne({ username }).then(existingUser => {
-            if (existingUser) {
-                return res.status(400).json({ message: 'Username already exists' });
-            }
+        const existingUser = await users.findOne({ username });
+        if (existingUser) {
+            return res.status(400).json({ message: 'Username already exists.' });
+        }
 
-            return users
-                .insertOne({
-                    username,
-                    password: password,
-                    highScores: {
-                        reactionTime: 0,
-                        aimTrainer: 0,
-                        numberMemory: 0,
-                    },
-                })
-                .then(() => res.status(201).json({ message: 'User registered successfully' }));
-        });
-    })
-        .catch(error => {
-            console.error(error);
-            res.status(500).json({ message: 'Error registering user', error });
+        await users.insertOne({
+            username,
+            password,
+            highScores: {
+                reactionTime: 1000000,
+                aimTrainer: 1000000,
+                numberMemory: 0,
+                sequenceMemory: 0,
+                visualMemory: 0,
+                verbalMemory: 0,
+            },
         });
 
+        res.status(201).json({ message: 'User registered successfully.' });
+    } catch (error) {
+        console.error('Error registering user:', error);
+        res.status(500).json({ message: 'Error registering user.', error });
+    }
 });
 
-router.post('/user/login', (req, res) => {
+router.post('/user/login', async (req, res) => {
     const { username, password } = req.body;
-    connectDB()
-        .then(db => {
-            const users = db.collection('users');
 
-            return users.findOne({ username }).then(user => {
-                if (!user) {
-                    return res.status(404).json({ message: 'User not found' });
-                }
-                if (user.password !== password) {
-                    return res.status(401).json({ message: 'Invalid password' });
-                }
+    if (!validateInput(['username', 'password'], req.body)) {
+        return res.status(400).json({ message: 'Username and password are required.' });
+    }
 
-                res.status(200).json({ message: 'Login successful', user });
-            });
-        })
-        .catch(error => {
-            console.error(error);
-            res.status(500).json({ message: 'Error logging in', error });
-        });
+    try {
+        const db = await connectDB();
+        const users = db.collection('users');
+
+        const user = await users.findOne({ username });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found.' });
+        }
+
+        if (user.password !== password) {
+            return res.status(401).json({ message: 'Invalid password.' });
+        }
+
+        res.status(200).json({ message: 'Login successful.', user });
+    } catch (error) {
+        console.error('Error logging in:', error);
+        res.status(500).json({ message: 'Error logging in.', error });
+    }
 });
 
 router.put('/user/highscore', (req, res) => {
     const { username, game, score } = req.body;
-
     connectDB()
-        .then(db => {
+        .then((db) => {
             const users = db.collection('users');
 
+            const updateOperation =
+                game === "reactionTime" || game === "aimTrainer"
+                    ? { $min: { [`highScores.${game}`]: score } }
+                    : { $max: { [`highScores.${game}`]: score } };
+
             return users
-                .updateOne(
-                    { username },
-                    { $max: { [`highScores.${game}`]: score } }
-                )
-                .then(result => {
-                    if (result.modifiedCount === 0) {
+                .updateOne({ username }, updateOperation)
+                .then((result) => {
+                    if (result.matchedCount === 0) {
                         return res.status(404).json({ message: 'User not found' });
                     }
 
                     res.status(200).json({ message: 'High score updated successfully' });
                 });
         })
-        .catch(error => {
+        .catch((error) => {
             console.error(error);
             res.status(500).json({ message: 'Error updating high score', error });
         });

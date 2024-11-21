@@ -9,6 +9,8 @@ import Login from './pages/Login.js';
 import './App.css'
 import Profile from './pages/Profile.js';
 import Leaderboard from './pages/Leaderboard.js';
+import VisualMemory from './pages/VisualMemory.js';
+import VerbalMemory from './pages/VerbalMemory.js';
 
 function App() {
     return (
@@ -24,6 +26,8 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/leaderboard" element={<Leaderboard />} />
                     <Route path="/profile" element={<Profile />} />
+                    <Route path="/test/visualmemory" element={<VisualMemory />} />
+                    <Route path="/test/verbalmemory" element={<VerbalMemory />} />
                 </Routes>
             </Router>
         </div>

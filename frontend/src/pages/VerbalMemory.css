@@ -1,0 +1,36 @@
+.verbalMemoryTestContainer {
+    color: white;
+    margin-top: 50px;
+}
+
+.answerButton {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+}
+
+.answerButton:hover {
+    background-color: #45a049;
+}
+
+button.startButton {
+    background-color: #4CAF50;
+    color: white;
+}
+
+button.restartButton {
+    background-color: #FF9800;
+    color: white;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+p {
+    font-size: 18px;
+}

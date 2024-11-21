@@ -3,6 +3,7 @@
     font-family: Arial, sans-serif;
     margin-top: 20px;
     padding-bottom: 100vh;
+    color: white;
 }
 
 .seqGrid {
@@ -31,9 +32,10 @@
     background-color: #2196f3;
 }
 
-.seqButton {
+.seqContainer .seqButton {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
     margin-top: 10px;
+    width: 150px
 }

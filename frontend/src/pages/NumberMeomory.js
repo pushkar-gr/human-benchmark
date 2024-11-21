@@ -8,8 +8,33 @@ const NumberMeomory = () => {
     const [showInput, setShowInput] = useState(false);
     const [userInput, setUserInput] = useState("");
     const [showResult, setShowResult] = useState(false);
-    const [gameOver, setGameOver] = useState(false);
     const [progress, setProgress] = useState(0);
+    const username = JSON.parse(localStorage.getItem("user"));
+
+    const updateHighScore = (newScore) => {
+        fetch("http://localhost:5000/api/user/highscore", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                username: username,
+                game: "numberMemory",
+                score: newScore,
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.message === "High score updated successfully") {
+                    console.log("High score updated!");
+                } else {
+                    console.error(data.message);
+                }
+            })
+            .catch((error) => {
+                console.error("Error updating high score:", error);
+            });
+    };
 
     useEffect(() => {
         generateNumber();
@@ -25,7 +50,6 @@ const NumberMeomory = () => {
         setUserInput("");
         setProgress(0);
 
-        // Start progress bar timer
         let progressInterval;
         let currentProgress = 0;
         progressInterval = setInterval(() => {
@@ -45,19 +69,19 @@ const NumberMeomory = () => {
     const handleSubmit = () => {
         setShowResult(true);
         setShowInput(false);
+
+        if (userInput === number) {
+            updateHighScore(level);
+            setTimeout(() => nextLevel(), 1500);
+        }
     };
 
     const nextLevel = () => {
-        if (level < 20) {
-            setLevel(level + 1);
-        } else {
-            setGameOver(true);
-        }
+        setLevel(level + 1);
     };
 
     const restartGame = () => {
         setLevel(1);
-        setGameOver(false);
         generateNumber();
     };
 
@@ -65,59 +89,51 @@ const NumberMeomory = () => {
         <div className="main">
             <Header />
             <div className="numContainer">
-                <h1>Number Trainer</h1>
-                {gameOver ? (
-                    <div>
-                        <h2>You Win!</h2>
-                        <button onClick={restartGame} className="numButton">
-                            Play Again
-                        </button>
-                    </div>
-                ) : (
-                    <div>
-                        <h2>Level: {level}</h2>
-                        {!showInput && !showResult && (
-                            <div>
-                                <h3>{number}</h3>
-                                <div className="numProgressContainer">
-                                    <div
-                                        className="numProgressBar"
-                                        style={{ width: `${progress}%` }}
-                                    ></div>
-                                </div>
+                <h1>Number Memory</h1>
+                <div>
+                    <h2>Level: {level}</h2>
+                    {!showInput && !showResult && (
+                        <div>
+                            <h3>{number}</h3>
+                            <div className="numProgressContainer">
+                                <div
+                                    className="numProgressBar"
+                                    style={{ width: `${progress}%` }}
+                                ></div>
                             </div>
-                        )}
-                        {showInput && (
-                            <div>
-                                <p>Enter the number:</p>
-                                <input
-                                    type="text"
-                                    value={userInput}
-                                    onChange={handleInputChange}
-                                    className="numInput"
-                                />
-                                <button onClick={handleSubmit} className="numButton btn draw-border">
-                                    Submit
-                                </button>
-                            </div>
-                        )}
-                        {showResult && (
-                            <div>
-                                <p>Original Number: {number}</p>
-                                <p>Your Input: {userInput}</p>
-                                {userInput === number ? (
-                                    <button onClick={nextLevel} className="numButton btn draw-border">
-                                        Next Level
-                                    </button>
-                                ) : (
+                        </div>
+                    )}
+                    {showInput && (
+                        <div>
+                            <p>Enter the number:</p>
+                            <input
+                                type="text"
+                                value={userInput}
+                                onChange={handleInputChange}
+                                className="numInput"
+                            />
+                            <button onClick={handleSubmit} className="numButton btn draw-border">
+                                Submit
+                            </button>
+                        </div>
+                    )}
+                    {showResult && (
+                        <div>
+                            <p>Original Number: {number}</p>
+                            <p>Your Input: {userInput}</p>
+                            {userInput === number ? (
+                                <p>Correct! Moving to the next level...</p>
+                            ) : (
+                                <div>
+                                    <p>Game Over!</p>
                                     <button onClick={restartGame} className="numButton btn draw-border">
                                         Restart
                                     </button>
-                                )}
-                            </div>
-                        )}
-                    </div>
-                )}
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );

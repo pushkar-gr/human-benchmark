@@ -8,6 +8,32 @@ const AimTrainer = () => {
     const [endTime, setEndTime] = useState(null);
     const [currentCircle, setCurrentCircle] = useState(0);
     const [totalCircles] = useState(20);
+    const username = JSON.parse(localStorage.getItem("user"));
+
+    const updateHighScore = (newScore) => {
+        fetch("http://localhost:5000/api/user/highscore", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                username: username,
+                game: "numberMemory",
+                score: newScore,
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.message === "High score updated successfully") {
+                    console.log("High score updated!");
+                } else {
+                    console.error(data.message);
+                }
+            })
+            .catch((error) => {
+                console.error("Error updating high score:", error);
+            });
+    };
 
     const handleCircleClick = () => {
         if (currentCircle === 0) {
@@ -29,6 +55,13 @@ const AimTrainer = () => {
 
         setCircle({ x, y });
     };
+
+    useEffect(() => {
+        if (endTime && startTime) {
+            const totalTime = (endTime - startTime) / totalCircles;
+            updateHighScore(totalTime);
+        }
+    }, [endTime]);
 
     useEffect(() => {
         if (currentCircle < totalCircles) {
