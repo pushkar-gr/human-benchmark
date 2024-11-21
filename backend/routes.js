@@ -102,4 +102,22 @@ router.get('/user/highscore', (req, res) => {
         });
 });
 
+router.get('/leaderboard', (req, res) => {
+    connectDB()
+        .then(db => {
+            const users = db.collection('users');
+
+            return users
+                .find({}, { projection: { username: 1, highScores: 1, _id: 0 } })
+                .toArray()
+                .then(users => {
+                    res.status(200).json(users);
+                });
+        })
+        .catch(error => {
+            console.error(error);
+            res.status(500).json({ message: 'Error fetching leaderboard', error });
+        });
+});
+
 module.exports = router;

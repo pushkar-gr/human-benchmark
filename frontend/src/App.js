@@ -8,6 +8,7 @@ import SequenceMemory from './pages/SequenceMemory.js';
 import Login from './pages/Login.js';
 import './App.css'
 import Profile from './pages/Profile.js';
+import Leaderboard from './pages/Leaderboard.js';
 
 function App() {
     return (
@@ -21,7 +22,8 @@ function App() {
                     <Route path="/test/numbermemory" element={<NumberMeomory />} />
                     <Route path="/test/sequencememory" element={<SequenceMemory />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/profile" element={<Profile/>} />
+                    <Route path="/leaderboard" element={<Leaderboard />} />
+                    <Route path="/profile" element={<Profile />} />
                 </Routes>
             </Router>
         </div>
