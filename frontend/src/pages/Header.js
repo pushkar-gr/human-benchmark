@@ -6,7 +6,6 @@ function Header() {
 
     useEffect(() => {
         const user = localStorage.getItem("user");
-        console.log(user);
         if (user) {
             setUsername(JSON.parse(user));
         }
@@ -15,6 +14,7 @@ function Header() {
     const logout = () => {
         localStorage.clear("user");
         setUsername(null);
+        window.location.reload();
     }
     return (
         <div className="globalHeader">

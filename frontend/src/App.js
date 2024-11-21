@@ -7,6 +7,7 @@ import NumberMeomory from './pages/NumberMeomory.js';
 import SequenceMemory from './pages/SequenceMemory.js';
 import Login from './pages/Login.js';
 import './App.css'
+import Profile from './pages/Profile.js';
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                     <Route path="/test/numbermemory" element={<NumberMeomory />} />
                     <Route path="/test/sequencememory" element={<SequenceMemory />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/profile" element={<Profile/>} />
                 </Routes>
             </Router>
         </div>

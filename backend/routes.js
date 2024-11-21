@@ -81,4 +81,25 @@ router.put('/user/highscore', (req, res) => {
         });
 });
 
+router.get('/user/highscore', (req, res) => {
+    const { username } = req.query;
+
+    connectDB()
+        .then(db => {
+            const users = db.collection('users');
+
+            return users.findOne({ username }).then(user => {
+                if (!user) {
+                    return res.status(404).json({ message: 'User not found' });
+                }
+
+                res.status(200).json({ highScores: user.highScores });
+            });
+        })
+        .catch(error => {
+            console.error(error);
+            res.status(500).json({ message: 'Error fetching high scores', error });
+        });
+});
+
 module.exports = router;
