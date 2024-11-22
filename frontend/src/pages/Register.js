@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Header from './Header';
-import './Register.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Header from "./Header";
+import "./Register.css";
 
 function Login() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        fetch('http://localhost:5000/api/user/register', {
-            method: 'POST',
+        fetch("http://localhost:5000/api/user/register", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({ username, password }),
         })
@@ -33,7 +33,7 @@ function Login() {
                 navigate("/home");
             })
             .catch((error) => {
-                console.error('Error :', error.message);
+                console.error("Error :", error.message);
                 setError(error.message);
             });
     };

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import './NumberMeomory.css';
-import Header from './Header.js';
+import "./NumberMeomory.css";
+import Header from "./Header.js";
 
 const NumberMeomory = () => {
     const [level, setLevel] = useState(1);

@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import Header from './Header';
-import './Leaderboard.css';
+import React, { useEffect, useState } from "react";
+import Header from "./Header";
+import "./Leaderboard.css";
 
 function Leaderboard() {
     const [leaderboard, setLeaderboard] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [sortField, setSortField] = useState('');
-    const [sortOrder, setSortOrder] = useState('');
+    const [sortField, setSortField] = useState("");
+    const [sortOrder, setSortOrder] = useState("");
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/leaderboard')
+        fetch("http://localhost:5000/api/leaderboard")
             .then(response => response.json())
             .then(data => {
                 setLeaderboard(data);
                 setLoading(false);
             })
             .catch(error => {
-                console.error('Error fetching leaderboard:', error);
+                console.error("Error fetching leaderboard:", error);
                 setLoading(false);
             });
     }, []);
 
     const handleSort = (field) => {
-        const order = sortField === field && sortOrder === 'asc' ? 'desc' : 'asc';
+        const order = sortField === field && sortOrder === "asc" ? "desc" : "asc";
         setSortField(field);
         setSortOrder(order);
 
@@ -30,7 +30,7 @@ function Leaderboard() {
             const aScore = a.highScores[field] || 0;
             const bScore = b.highScores[field] || 0;
 
-            if (order === 'asc') {
+            if (order === "asc") {
                 return aScore - bScore;
             } else {
                 return bScore - aScore;
@@ -54,23 +54,23 @@ function Leaderboard() {
                         <tr>
                             <th>Rank</th>
                             <th>Username</th>
-                            <th onClick={() => handleSort('reactionTime')} style={{ cursor: 'pointer' }}>
-                                Reaction Time {sortField === 'reactionTime' ? (sortOrder === 'asc' ? '↓' : '↑') : ''}
+                            <th onClick={() => handleSort("reactionTime")} style={{ cursor: "pointer" }}>
+                                Reaction Time {sortField === "reactionTime" ? (sortOrder === "asc" ? "↓" : "↑") : ""}
                             </th>
-                            <th onClick={() => handleSort('aimTrainer')} style={{ cursor: 'pointer' }}>
-                                Aim Trainer {sortField === 'aimTrainer' ? (sortOrder === 'asc' ? '↓' : '↑') : ''}
+                            <th onClick={() => handleSort("aimTrainer")} style={{ cursor: "pointer" }}>
+                                Aim Trainer {sortField === "aimTrainer" ? (sortOrder === "asc" ? "↓" : "↑") : ""}
                             </th>
-                            <th onClick={() => handleSort('numberMemory')} style={{ cursor: 'pointer' }}>
-                                Number Memory {sortField === 'numberMemory' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
+                            <th onClick={() => handleSort("numberMemory")} style={{ cursor: "pointer" }}>
+                                Number Memory {sortField === "numberMemory" ? (sortOrder === "asc" ? "↑" : "↓") : ""}
                             </th>
-                            <th onClick={() => handleSort('sequenceMemory')} style={{ cursor: 'pointer' }}>
-                                Sequence Memory {sortField === 'sequenceMemory' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
+                            <th onClick={() => handleSort("sequenceMemory")} style={{ cursor: "pointer" }}>
+                                Sequence Memory {sortField === "sequenceMemory" ? (sortOrder === "asc" ? "↑" : "↓") : ""}
                             </th>
-                            <th onClick={() => handleSort('visualMemory')} style={{ cursor: 'pointer' }}>
-                                Visual Memory {sortField === 'visualMemory' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
+                            <th onClick={() => handleSort("visualMemory")} style={{ cursor: "pointer" }}>
+                                Visual Memory {sortField === "visualMemory" ? (sortOrder === "asc" ? "↑" : "↓") : ""}
                             </th>
-                            <th onClick={() => handleSort('verbalMemory')} style={{ cursor: 'pointer' }}>
-                                Verbal Memory {sortField === 'verbalMemory' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
+                            <th onClick={() => handleSort("verbalMemory")} style={{ cursor: "pointer" }}>
+                                Verbal Memory {sortField === "verbalMemory" ? (sortOrder === "asc" ? "↑" : "↓") : ""}
                             </th>
                         </tr>
                     </thead>
@@ -79,12 +79,12 @@ function Leaderboard() {
                             <tr key={user.username}>
                                 <td>{index + 1}</td>
                                 <td>{user.username}</td>
-                                <td>{(user.highScores?.reactionTime !== 1000000) ? user.highScores.reactionTime : 'N/A'}</td>
-                                <td>{(user.highScores?.aimTrainer !== 1000000) ? user.highScores.aimTrainer : 'N/A'}</td>
-                                <td>{user.highScores?.numberMemory || 'N/A'}</td>
-                                <td>{user.highScores?.sequenceMemory || 'N/A'}</td>
-                                <td>{user.highScores?.visualMemory || 'N/A'}</td>
-                                <td>{user.highScores?.verbalMemory || 'N/A'}</td>
+                                <td>{(user.highScores?.reactionTime !== 1000000) ? user.highScores.reactionTime : "N/A"}</td>
+                                <td>{(user.highScores?.aimTrainer !== 1000000) ? user.highScores.aimTrainer : "N/A"}</td>
+                                <td>{user.highScores?.numberMemory || "N/A"}</td>
+                                <td>{user.highScores?.sequenceMemory || "N/A"}</td>
+                                <td>{user.highScores?.visualMemory || "N/A"}</td>
+                                <td>{user.highScores?.verbalMemory || "N/A"}</td>
                             </tr>
                         ))}
                     </tbody>

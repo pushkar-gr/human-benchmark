@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Header from './Header';
-import './Login.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Header from "./Header";
+import "./Login.css";
 
 function Login() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        fetch('http://localhost:5000/api/user/login', {
-            method: 'POST',
+        fetch("http://localhost:5000/api/user/login", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({ username, password }),
         })
@@ -33,7 +33,7 @@ function Login() {
                 navigate("/home");
             })
             .catch((error) => {
-                console.error('Error logging in:', error.message);
+                console.error("Error logging in:", error.message);
                 setError(error.message);
             });
     };
@@ -63,7 +63,7 @@ function Login() {
                     />
                     <button type="submit" className="btn draw-border loginButton">Login</button>
                     <p>
-                        Don't have an account? <a href="/register">Sign up</a>
+                        Don"t have an account? <a href="/register">Sign up</a>
                     </p>
                 </form>
             </div>

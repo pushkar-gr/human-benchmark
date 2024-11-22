@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import './AimTrainer.css'
-import Header from './Header';
+import "./AimTrainer.css"
+import Header from "./Header";
 
 const AimTrainer = () => {
     const [circle, setCircle] = useState(null);

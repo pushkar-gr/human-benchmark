@@ -1,11 +1,11 @@
-import React from 'react';
-import './Home.css';
-import { useNavigate } from 'react-router-dom';
-import Header from './Header';
+import React from "react";
+import "./Home.css";
+import { useNavigate } from "react-router-dom";
+import Header from "./Header";
 
 function Home() {
     return (
-        <div className='main'>
+        <div className="main">
             <Header />
             <h1 className="homeHeading">Test Your Abilities</h1>
             <Grid />

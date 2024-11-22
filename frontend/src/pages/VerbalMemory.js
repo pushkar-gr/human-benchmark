@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import './VerbalMemory.css';
-import Header from './Header';
+import "./VerbalMemory.css";
+import Header from "./Header";
 
 const VerbalMemory = () => {
     const [wordsToMemorize, setWordsToMemorize] = useState([]);
-    const [currentWord, setCurrentWord] = useState('');
+    const [currentWord, setCurrentWord] = useState("");
     const [seenWords, setSeenWords] = useState(new Set());
     const [score, setScore] = useState(0);
     const [lives, setLives] = useState(3);
