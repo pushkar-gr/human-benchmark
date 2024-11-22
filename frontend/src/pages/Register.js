@@ -1,44 +1,56 @@
-const express = require("express");
-const router = express.Router();
-const connectDB = require("../db.js"); // Ensure this points to your DB connection file
+import React, { useState } from "react";
+import "./Register.css";
 
-const validateInput = (fields, body) => {
-    return fields.every((field) => body[field]);
-};
+const Register = () => {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [message, setMessage] = useState("");
 
-router.post("/register", async (req, res) => {
-    const { username, password } = req.body;
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-    if (!validateInput(["username", "password"], req.body)) {
-        return res.status(400).json({ message: "Username and password are required." });
-    }
-
-    try {
-        const db = await connectDB();
-        const users = db.collection("users");
-
-        // Check if username already exists
-        const existingUser = await users.findOne({ username });
-        if (existingUser) {
-            return res.status(400).json({ message: "Username already exists." });
-        }
-
-        // Create new user with default high scores
-        await users.insertOne({
-            username,
-            password,
-            highScores: {
-                reactionTime: 1000000,
-                verbalMemory: 0,
-                aimTrainer: 0,
+        const response = await fetch("http://localhost:5000/user/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
             },
+            body: JSON.stringify({ username, password }),
         });
 
-        res.status(201).json({ message: "User registered successfully." });
-    } catch (error) {
-        console.error("Error registering user:", error);
-        res.status(500).json({ message: "Error registering user." });
-    }
-});
+        const data = await response.json();
 
-module.exports = router;
+        if (response.ok) {
+            setMessage("User registered successfully!");
+            setUsername("");
+            setPassword("");
+        } else {
+            setMessage(data.message || "Error registering user.");
+        }
+    };
+
+    return (
+        <div className="register-container">
+            <h1>Register</h1>
+            <form onSubmit={handleSubmit} className="register-form">
+                <label>Username:</label>
+                <input
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                />
+                <label>Password:</label>
+                <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
+                <button type="submit">Register</button>
+            </form>
+            {message && <p className="message">{message}</p>}
+        </div>
+    );
+};
+
+export default Register;
