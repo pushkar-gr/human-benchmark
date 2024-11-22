@@ -10,7 +10,7 @@ import Profile from './pages/Profile.js';
 import Leaderboard from './pages/Leaderboard.js';
 import VisualMemory from './pages/VisualMemory.js';
 import VerbalMemory from './pages/VerbalMemory.js';
-import Register from './pages/Register.js'; // Import the Register page
+import Register from './pages/Register.js';
 import './App.css';
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
                     <Route path="/test/numbermemory" element={<NumberMeomory />} />
                     <Route path="/test/sequencememory" element={<SequenceMemory />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} /> {/* Add Register route */}
+                    <Route path="/register" element={<Register />} />
                     <Route path="/leaderboard" element={<Leaderboard />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/test/visualmemory" element={<VisualMemory />} />
