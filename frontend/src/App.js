@@ -12,6 +12,7 @@ import VisualMemory from "./pages/VisualMemory.js";
 import VerbalMemory from "./pages/VerbalMemory.js";
 import Register from "./pages/Register.js";
 import "./App.css";
+import About from "./pages/About.js";
 
 function App() {
     return (
@@ -30,6 +31,7 @@ function App() {
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/test/visualmemory" element={<VisualMemory />} />
                     <Route path="/test/verbalmemory" element={<VerbalMemory />} />
+                    <Route path="/about" element={<About />} />
                 </Routes>
             </Router>
         </div>
