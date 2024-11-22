@@ -76,6 +76,7 @@ const SequenceMemory = () => {
             updateHighScore(level - 1);
         } else if (updatedUserInput.length === sequence.length) {
             handleNextLevel();
+            updateHighScore(level - 1);
         }
     };
 

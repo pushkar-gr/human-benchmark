@@ -3,25 +3,27 @@
     font-family: Arial, sans-serif;
     margin-top: 20px;
     padding-bottom: 100vh;
-    color: white;
+    color: #C6267B;
 }
 
 .seqGrid {
     display: grid;
     grid-template-columns: repeat(3, 70px);
-    grid-gap: 5px;
+    row-gap: 10px;
+    column-gap: 20px;
     justify-content: center;
     margin: 20px auto;
 }
 
 .seqCell {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     margin: 5px;
     background-color: #ccc;
     border: 1px solid #333;
     display: inline-block;
     cursor: pointer;
+    border-radius: 10px;
 }
 
 .seqCell.highlighted {
@@ -29,7 +31,7 @@
 }
 
 .seqCell.clicked {
-    background-color: #2196f3;
+    background-color: #620093;
 }
 
 .seqContainer .seqButton {

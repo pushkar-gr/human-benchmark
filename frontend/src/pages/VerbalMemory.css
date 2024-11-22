@@ -1,36 +1,31 @@
-.verbalMemoryTestContainer {
-    color: white;
+.verbalMemoryContainer {
+    color: #C6267B;
     margin-top: 50px;
+    width: 0 auto;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
-.answerButton {
+.verbalMemoryContainer .verbalAnswerButton {
     padding: 10px 20px;
     margin: 10px;
     font-size: 16px;
-    cursor: pointer;
-    background-color: #4CAF50;
-    color: white;
 }
 
-.answerButton:hover {
-    background-color: #45a049;
+.verbalMemoryContainer .verbalStartButton {
+    width: 200px;
 }
 
-button.startButton {
-    background-color: #4CAF50;
-    color: white;
-}
-
-button.restartButton {
+.verbalRestartButton {
     background-color: #FF9800;
-    color: white;
 }
 
-h2 {
+.verbalMemoryContainer h2 {
     font-size: 24px;
     font-weight: bold;
 }
 
-p {
+.verbalMemoryContainer p {
     font-size: 18px;
 }

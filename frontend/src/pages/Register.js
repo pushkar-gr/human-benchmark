@@ -1,60 +1,71 @@
-import React, { useState } from "react";
-import "./Register.css";
-import Header from "./Header.js";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Header from './Header';
+import './Register.css';
 
-const Register = () => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [message, setMessage] = useState("");
+function Login() {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        const response = await fetch("http://localhost:5000/api/user/register", {
-            method: "POST",
+        fetch('http://localhost:5000/api/user/register', {
+            method: 'POST',
             headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({ username, password }),
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            setMessage("User registered successfully!");
-            setUsername("");
-            setPassword("");
-        } else {
-            setMessage(data.message || "Error registering user.");
-        }
+        })
+            .then((response) => {
+                if (!response.status === 201) {
+                    return response.json().then((err) => {
+                        throw new Error(err.message);
+                    })
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data);
+                localStorage.setItem("user", JSON.stringify(username));
+                navigate("/home");
+            })
+            .catch((error) => {
+                console.error('Error :', error.message);
+                setError(error.message);
+            });
     };
 
     return (
-<div class name="main">
-<Header />
-        <div className="register-container">
-            <h1>Register</h1>
-            <form onSubmit={handleSubmit} className="register-form">
-                <label>Username:</label>
-                <input
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                />
-                <label>Password:</label>
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                <button type="submit">Register</button>
-            </form>
-            {message && <p className="message">{message}</p>}
+        <div className="main">
+            <Header />
+            <div className="registerContain">
+                <form className="registerForm" onSubmit={handleSubmit}>
+                    <h1>Register</h1>
+                    {error && <p>{error}</p>}
+                    <input
+                        type="text"
+                        id="username"
+                        value={username}
+                        onChange={(e) => { setUsername(e.target.value); setError("") }}
+                        placeholder="Enter your username"
+                        required
+                    />
+                    <input
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => { setPassword(e.target.value); setError("") }}
+                        placeholder="Enter your password"
+                        required
+                    />
+                    <button type="submit" className="btn draw-border registerButton">Register</button>
+                </form>
+            </div>
         </div>
-</div>
     );
-};
+}
 
-export default Register;
+export default Login;

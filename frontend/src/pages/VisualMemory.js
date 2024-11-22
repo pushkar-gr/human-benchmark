@@ -55,6 +55,7 @@ const VisualMemory = () => {
                 );
                 setUserClicks([]);
                 setIsTransitioning(false);
+                updateHighScore(level - 1);
             }, 500);
         }
     };
@@ -100,15 +101,14 @@ const VisualMemory = () => {
             squares.push(
                 <div
                     key={i}
-                    className={`visualSquare ${
-                        showSquares && markedSquares.includes(i)
-                            ? "marked"
-                            : userClicks.includes(i)
+                    className={`visualSquare ${showSquares && markedSquares.includes(i)
+                        ? "marked"
+                        : userClicks.includes(i)
                             ? markedSquares.includes(i)
                                 ? "correct"
                                 : "wrong"
                             : ""
-                    }`}
+                        }`}
                     onClick={() => handleSquareClick(i)}
                 ></div>
             );

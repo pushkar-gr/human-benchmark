@@ -5,8 +5,8 @@ import './Leaderboard.css';
 function Leaderboard() {
     const [leaderboard, setLeaderboard] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [sortField, setSortField] = useState('reactionTime');
-    const [sortOrder, setSortOrder] = useState('asc');
+    const [sortField, setSortField] = useState('');
+    const [sortOrder, setSortOrder] = useState('');
 
     useEffect(() => {
         fetch('http://localhost:5000/api/leaderboard')
@@ -55,10 +55,10 @@ function Leaderboard() {
                             <th>Rank</th>
                             <th>Username</th>
                             <th onClick={() => handleSort('reactionTime')} style={{ cursor: 'pointer' }}>
-                                Reaction Time {sortField === 'reactionTime' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
+                                Reaction Time {sortField === 'reactionTime' ? (sortOrder === 'asc' ? '↓' : '↑') : ''}
                             </th>
                             <th onClick={() => handleSort('aimTrainer')} style={{ cursor: 'pointer' }}>
-                                Aim Trainer {sortField === 'aimTrainer' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
+                                Aim Trainer {sortField === 'aimTrainer' ? (sortOrder === 'asc' ? '↓' : '↑') : ''}
                             </th>
                             <th onClick={() => handleSort('numberMemory')} style={{ cursor: 'pointer' }}>
                                 Number Memory {sortField === 'numberMemory' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}

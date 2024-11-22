@@ -18,7 +18,7 @@ const AimTrainer = () => {
             },
             body: JSON.stringify({
                 username: username,
-                game: "numberMemory",
+                game: "aimTrainer",
                 score: newScore,
             }),
         })

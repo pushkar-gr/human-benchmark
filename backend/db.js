@@ -12,7 +12,7 @@ const connectDB = async () => {
             db = client.db("human=benchmark");
             return db;
         }).catch((error) => {
-            console.log("Error connecting to DB:",error);
+            console.log("Error connecting to DB:", error);
             process.exit(1)
         })
 }

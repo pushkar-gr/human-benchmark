@@ -14,7 +14,7 @@ const VerbalMemory = () => {
 
     const wordList = [
         "apple", "banana", "cherry", "grape", "orange",
-        "pineapple", "kiwi", "peach", "mango", "melon", 
+        "pineapple", "kiwi", "peach", "mango", "melon",
         "watermelon", "blueberry", "strawberry", "pear", "papaya"
     ];
 
@@ -24,24 +24,21 @@ const VerbalMemory = () => {
 
     const handleAnswer = (isSeen) => {
         const correctAnswer = seenWords.has(currentWord);
-        
+
         if (isSeen === correctAnswer) {
             setScore(score + 1);
         } else {
             setLives(lives - 1);
         }
 
-        // Add the current word to the "seen" set only after it's been shown
         setSeenWords(new Set(seenWords.add(currentWord)));
 
-        // Change to a new word after each answer (correct or not)
         const newWord = getRandomWord();
         setCurrentWord(newWord);
 
-        // End game if lives are 0
+        updateHighScore(score);
         if (lives === 1) {
             setGameOver(true);
-            updateHighScore(score); // Update high score when game ends
         }
     };
 
@@ -52,7 +49,6 @@ const VerbalMemory = () => {
         setSeenWords(new Set());
         setGameOver(false);
 
-        // Set the first word when the game starts
         setCurrentWord(getRandomWord());
     };
 
@@ -84,10 +80,10 @@ const VerbalMemory = () => {
     return (
         <div className="main">
             <Header />
-            <div className="verbalMemoryTestContainer">
+            <div className="verbalMemoryContainer">
                 <h1>Verbal Memory Test</h1>
                 {!gameStarted && (
-                    <button onClick={startGame} className="startButton">
+                    <button onClick={startGame} className="verbalStartButton btn draw-border">
                         Start Game
                     </button>
                 )}
@@ -97,10 +93,10 @@ const VerbalMemory = () => {
                         <h2>Word: {currentWord}</h2>
                         <p>Score: {score}</p>
                         <p>Lives: {lives}</p>
-                        <button onClick={() => handleAnswer(true)} className="answerButton">
+                        <button onClick={() => handleAnswer(true)} className="verbalAnswerButton btn draw-border">
                             Seen
                         </button>
-                        <button onClick={() => handleAnswer(false)} className="answerButton">
+                        <button onClick={() => handleAnswer(false)} className="verbalAnswerButton btn draw-border">
                             New
                         </button>
                     </div>
@@ -109,8 +105,8 @@ const VerbalMemory = () => {
                 {gameOver && (
                     <div>
                         <h2>Game Over</h2>
-                        <h3>Your final score: {score-1}</h3>
-                        <button onClick={startGame} className="restartButton">
+                        <h3>Your final score: {score - 1}</h3>
+                        <button onClick={startGame} className="verbalRestartButton btn draw-border">
                             Restart Game
                         </button>
                     </div>

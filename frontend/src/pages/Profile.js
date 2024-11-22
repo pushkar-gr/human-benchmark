@@ -63,7 +63,10 @@ function Profile() {
     const highScoreName = {
         "reactionTime": "Reaction Time",
         "aimTrainer": "Aim Trainer",
-        "numberMemory": "Number Memory"
+        "numberMemory": "Number Memory",
+        "sequenceMemory": "Sequence Memory",
+        "visualMemory": "Visual Memory",
+        "verbalMemory": "Verbal Memory"
     }
 
     return (
@@ -77,7 +80,7 @@ function Profile() {
                     <ul>
                         {Object.entries(highScores).map(([test, score]) => (
                             <li key={test}>
-                                {highScoreName[test]}:<p className='profileValue'>{score}</p>
+                                {highScoreName[test]}:<p className='profileValue'>{(score === 0 || score === 1000000) ? 'N/A' : score}</p>
                             </li>
                         ))}
                     </ul>
